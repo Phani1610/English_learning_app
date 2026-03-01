@@ -1,9 +1,7 @@
 Flask
 flask-cors
 gunicorn
+gTTS
 textblob
-SpeechRecognition
-gTTS
-language-tool-python
 requests
-gTTS
+openai
