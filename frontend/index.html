@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Learning Web App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <h2>English Learning</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#home" class="nav-item active" data-section="home">
+                    <span class="nav-icon">🏠</span>
+                    <span>Home</span>
+                </a>
+                <a href="#audio-grammar" class="nav-item" data-section="audio-grammar">
+                    <span class="nav-icon">🎧</span>
+                    <span>Audio & Grammar</span>
+                </a>
+                <a href="#quiz" class="nav-item" data-section="quiz">
+                    <span class="nav-icon">📝</span>
+                    <span>Quiz</span>
+                </a>
+                <a href="#chatbot" class="nav-item" data-section="chatbot">
+                    <span class="nav-icon">💬</span>
+                    <span>Chatbot</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="content-section active">
+                <header class="page-header">
+                    <h1>Welcome to English Learning</h1>
+                    <p>Master your English skills with AI-powered tools</p>
+                </header>
+                
+                <div class="dashboard-cards">
+                    <div class="card" data-target="audio-grammar">
+                        <div class="card-icon">🎧</div>
+                        <h3>Audio & Grammar</h3>
+                        <p>Convert speech to text, text to speech, and check grammar</p>
+                    </div>
+                    <div class="card" data-target="quiz">
+                        <div class="card-icon">📝</div>
+                        <h3>Grammar Quiz</h3>
+                        <p>Test your grammar skills with interactive quizzes</p>
+                    </div>
+                    <div class="card" data-target="chatbot">
+                        <div class="card-icon">💬</div>
+                        <h3>AI Chatbot</h3>
+                        <p>Practice English with an AI-powered chatbot</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Audio & Grammar Section -->
+            <section id="audio-grammar" class="content-section">
+                <header class="page-header">
+                    <h1>Audio & Grammar Tools</h1>
+                    <p>Enhance your listening and writing skills</p>
+                </header>
+                
+                <div class="tools-grid">
+                    <!-- Audio to Text -->
+                    <div class="tool-card" id="audio-to-text">
+                        <h3>🎤 Audio to Text</h3>
+                        <p>Convert your speech to text</p>
+                        <div class="tool-content">
+                            <button id="mic-btn" class="action-btn mic-btn">
+                                <span class="btn-icon">🎤</span>
+                                <span>Start Recording</span>
+                            </button>
+                            <div class="result-area">
+                                <textarea id="audio-result" placeholder="Your speech will appear here..." readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text to Speech -->
+                    <div class="tool-card" id="text-to-speech">
+                        <h3>🔊 Text to Speech</h3>
+                        <p>Convert text to spoken audio</p>
+                        <div class="tool-content">
+                            <textarea id="tts-input" placeholder="Enter text to speak..."></textarea>
+                            <button id="speak-btn" class="action-btn">
+                                <span class="btn-icon">🔊</span>
+                                <span>Speak</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Grammar Checker -->
+                    <div class="tool-card full-width" id="grammar-checker">
+                        <h3>✏️ Grammar Checker</h3>
+                        <p>Check and improve your grammar</p>
+                        <div class="tool-content">
+                            <textarea id="grammar-input" placeholder="Enter your text to check grammar..."></textarea>
+                            <button id="check-grammar-btn" class="action-btn">
+                                <span class="btn-icon">✓</span>
+                                <span>Check Grammar</span>
+                            </button>
+                            <div class="result-area">
+                                <div id="grammar-result" class="grammar-result"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quiz Section -->
+            <section id="quiz" class="content-section">
+                <header class="page-header">
+                    <h1>Grammar Quiz</h1>
+                    <p>Test your grammar knowledge</p>
+                </header>
+                
+                <div class="quiz-container" id="quiz-container">
+                    <div class="quiz-header">
+                        <span class="quiz-progress" id="quiz-progress">Question 1 of 5</span>
+                        <span class="quiz-score" id="quiz-score">Score: 0</span>
+                    </div>
+                    <div class="quiz-question" id="quiz-question">
+                        <h3 id="question-text">Loading question...</h3>
+                    </div>
+                    <div class="quiz-options" id="quiz-options">
+                        <!-- Options will be dynamically populated -->
+                    </div>
+                    <div class="quiz-actions">
+                        <button id="next-question-btn" class="action-btn" disabled>Next Question</button>
+                        <button id="restart-quiz-btn" class="action-btn secondary">Restart Quiz</button>
+                    </div>
+                    <div class="quiz-result" id="quiz-result" style="display: none;">
+                        <h3>Quiz Complete!</h3>
+                        <p id="final-score"></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chatbot Section -->
+            <section id="chatbot" class="content-section">
+                <header class="page-header">
+                    <h1>AI Chatbot</h1>
+                    <p>Practice English conversation with AI</p>
+                </header>
+                
+                <div class="chatbot-container" id="chatbot-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot-message">
+                            <p>Hello! I'm your AI English tutor. How can I help you practice English today?</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="chat-input" placeholder="Type your message...">
+                        <button id="send-btn" class="action-btn">
+                            <span>Send</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
