@@ -7,3 +7,4 @@ pyttsx3
 gTTS
 language-tool-python
 requests
+gTTS
