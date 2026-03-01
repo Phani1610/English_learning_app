@@ -13,6 +13,8 @@ from flask_cors import CORS
 import json
 import tempfile
 import os
+from gtts import gTTS
+
 
 # Set NLTK data path before importing textblob
 import nltk
@@ -193,53 +195,41 @@ def speech_to_text():
 @app.route('/text-to-speech', methods=['POST'])
 def text_to_speech():
     """
-    Convert text to audio using pyttsx3
-    
-    Request JSON:
-    {
-        "text": "Text to convert to speech",
-        "language": "en"  // Language code (default: en)
-    }
-    
-    Returns:
-    {
-        "success": true/false,
-        "audio_file": "<path to audio file>",
-        "error": "error message if any"
-    }
+    Convert text to speech using gTTS (Render compatible)
     """
     try:
         data = request.get_json()
-        
+
         if not data or 'text' not in data:
             return jsonify({
                 "success": False,
                 "error": "Text is required"
             }), 400
-        
+
         text = data['text']
-        
-        # Create temporary file for audio
-        temp_dir = tempfile.gettempdir()
-        audio_file = os.path.join(temp_dir, "tts_output.mp3")
-        
-        # Save to file using pyttsx3
-        tts_engine.save_to_file(text, audio_file)
-        tts_engine.runAndWait()
-        
-        # Return the audio file path (frontend will handle playing)
-        return jsonify({
-            "success": True,
-            "audio_file": audio_file,
-            "text": text
-        })
-        
+        language = data.get("language", "en")
+
+        # Create temporary file
+        temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".mp3")
+        temp_path = temp_file.name
+        temp_file.close()
+
+        # Generate speech
+        tts = gTTS(text=text, lang=language)
+        tts.save(temp_path)
+
+        # Return audio file directly
+        return send_file(
+            temp_path,
+            mimetype="audio/mpeg",
+            as_attachment=False
+        )
+
     except Exception as e:
         return jsonify({
             "success": False,
             "error": f"Error converting text to speech: {str(e)}"
         }), 500
-
 
 # ==================== GRAMMAR CHECKER ====================
 
